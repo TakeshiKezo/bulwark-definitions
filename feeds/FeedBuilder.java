@@ -58,7 +58,8 @@ public class FeedBuilder {
             String body = fetch(http, src);
             if (body == null) continue;
             int before = hashes.size();
-            readHashLines(body, hashes, src.getOrDefault("label", "Feed"));
+            if ("bazaar-csv".equals(src.get("format"))) readBazaarCsv(body, hashes);
+            else readHashLines(body, hashes, src.getOrDefault("label", "Feed"));
             log("hashes  +" + (hashes.size() - before) + "  " + src.get("name"));
         }
 
@@ -122,6 +123,21 @@ public class FeedBuilder {
 
     // ------------------------------------------------------------------ parsing
 
+    /** MalwareBazaar CSV: first_seen, sha256, md5, sha1, reporter, file_name, file_type, mime, signature, ... */
+    static void readBazaarCsv(String text, Map<String, String> out) {
+        for (String raw : text.split("\\R")) {
+            if (raw.isBlank() || raw.startsWith("#")) continue;
+            String[] c = raw.split("\",\\s*\"");
+            if (c.length < 9) continue;
+            String sha = c[1].replace("\"", "").trim().toLowerCase(Locale.ROOT);
+            if (!SHA256.matcher(sha).matches()) continue;
+            String sig = c[8].replace("\"", "").trim();
+            String type = c[6].replace("\"", "").trim();
+            String family = (sig.isEmpty() || sig.equals("n/a")) ? "Generic." + (type.isEmpty() ? "bin" : type) : sig;
+            out.putIfAbsent(sha, "file;MalwareBazaar." + family.replaceAll("[^A-Za-z0-9._-]", "_"));
+        }
+    }
+
     static void readHashLines(String text, Map<String, String> out, String label) {
         for (String raw : text.split("\\R")) {
             String line = raw.trim();
@@ -167,12 +183,19 @@ public class FeedBuilder {
                 if (body != null && !body.isBlank()) return body;
             }
         }
-        failedSources.add(src.get("name"));
+        if ("true".equals(src.get("optional"))) log("optional source unavailable: " + src.get("name"));
+        else failedSources.add(src.get("name"));
         return null;
     }
 
     static String fetchOnce(HttpClient http, Map<String, String> src, String url) {
         try {
+            String env0 = src.get("authEnv");
+            if (url.contains("%AUTH%")) {
+                String key = env0 == null ? null : System.getenv(env0);
+                if (key == null || key.isBlank()) { log("skip (env " + env0 + " not set)  " + src.get("name")); return null; }
+                url = url.replace("%AUTH%", key);
+            }
             HttpRequest.Builder rb = HttpRequest.newBuilder(URI.create(url))
                     .timeout(Duration.ofSeconds(120)).header("User-Agent", "Bulwark-FeedBuilder/1.0");
             String env = src.get("authEnv");

@@ -1,27 +1,32 @@
 {
-  "_comment": "Threat-intel sources for the Bulwark definitions feed. Usage: PRIVATE, NON-COMMERCIAL (free app for family members via a closed Google Play test track). Re-check every license if this ever becomes commercial. enabled=false = not allowed for this usage. authEnv = environment variable holding an API/auth key.",
-  "_reviewed": "2026-11-16 - abuse.ch: free for not-for-profit use with auth key. Phishing Army: CC BY-NC 4.0, attribution in app. Phishing.Database: MIT. OpenPhish community feed: disabled, terms forbid making the data available to third parties.",
+  "_comment": "Threat-intel sources for the Bulwark definitions feed. Usage: PRIVATE, NON-COMMERCIAL (free app for family members via a closed Google Play test track). Re-check every license if this ever becomes commercial. enabled=false = not allowed for this usage. %AUTH% in a URL is replaced by the value of the environment variable named in authEnv. optional=true sources may fail without stopping the build.",
+  "_reviewed": "2026-11-16 - abuse.ch: free for not-for-profit use with auth key (onboarding answered: personal usage). Phishing Army: CC BY-NC 4.0, attribution in app. Phishing.Database: MIT. OpenPhish community feed: disabled, terms forbid making the data available to third parties.",
   "hashes": [
     {
-      "name": "MalwareBazaar recent SHA-256 (abuse.ch)",
+      "name": "MalwareBazaar recent additions (abuse.ch, last 48 h)",
       "enabled": "true",
-      "url": "https://bazaar.abuse.ch/export/txt/sha256/recent/",
-      "format": "sha256-lines",
-      "label": "MalwareBazaar",
-      "authHeader": "Auth-Key",
+      "url": "https://mb-api.abuse.ch/v2/files/exports/%AUTH%/recent.csv",
+      "format": "bazaar-csv",
       "authEnv": "ABUSECH_AUTH_KEY",
-      "license": "abuse.ch terms: free for not-for-profit use (commercial use requires Spamhaus subscription)"
+      "license": "abuse.ch fair use: free for not-for-profit use"
+    },
+    {
+      "name": "Previously published Bulwark set (rolling accumulation)",
+      "enabled": "true",
+      "optional": "true",
+      "url": "https://takeshikezo.github.io/bulwark-definitions/v1/hash_blocklist.txt",
+      "format": "blocklist",
+      "license": "own data"
     }
   ],
   "domains": [
     {
       "name": "URLhaus malware hosts (abuse.ch)",
       "enabled": "true",
-      "url": "https://urlhaus.abuse.ch/downloads/hostfile/",
+      "url": "https://urlhaus-api.abuse.ch/v2/files/exports/%AUTH%/hostfile.txt",
       "format": "hosts",
-      "authHeader": "Auth-Key",
       "authEnv": "ABUSECH_AUTH_KEY",
-      "license": "abuse.ch terms: free for not-for-profit use"
+      "license": "abuse.ch fair use: free for not-for-profit use"
     },
     {
       "name": "Phishing.Database active phishing domains",
