@@ -1,0 +1,53 @@
+{
+  "_comment": "Threat-intel sources for the Bulwark definitions feed. Usage: PRIVATE, NON-COMMERCIAL (free app for family members via a closed Google Play test track). Re-check every license if this ever becomes commercial. enabled=false = not allowed for this usage. authEnv = environment variable holding an API/auth key.",
+  "_reviewed": "2026-11-16 - abuse.ch: free for not-for-profit use with auth key. Phishing Army: CC BY-NC 4.0, attribution in app. Phishing.Database: MIT. OpenPhish community feed: disabled, terms forbid making the data available to third parties.",
+  "hashes": [
+    {
+      "name": "MalwareBazaar recent SHA-256 (abuse.ch)",
+      "enabled": "true",
+      "url": "https://bazaar.abuse.ch/export/txt/sha256/recent/",
+      "format": "sha256-lines",
+      "label": "MalwareBazaar",
+      "authHeader": "Auth-Key",
+      "authEnv": "ABUSECH_AUTH_KEY",
+      "license": "abuse.ch terms: free for not-for-profit use (commercial use requires Spamhaus subscription)"
+    }
+  ],
+  "domains": [
+    {
+      "name": "URLhaus malware hosts (abuse.ch)",
+      "enabled": "true",
+      "url": "https://urlhaus.abuse.ch/downloads/hostfile/",
+      "format": "hosts",
+      "authHeader": "Auth-Key",
+      "authEnv": "ABUSECH_AUTH_KEY",
+      "license": "abuse.ch terms: free for not-for-profit use"
+    },
+    {
+      "name": "Phishing.Database active phishing domains",
+      "enabled": "true",
+      "url": "https://phish.co.za/latest/phishing-domains-ACTIVE.txt",
+      "mirror": "https://raw.githubusercontent.com/Phishing-Database/Phishing.Database/master/phishing-domains-ACTIVE.txt",
+      "format": "domains",
+      "license": "MIT - attribution in app"
+    },
+    {
+      "name": "Phishing Army blocklist",
+      "enabled": "true",
+      "url": "https://phishing.army/download/phishing_army_blocklist.txt",
+      "format": "domains",
+      "license": "CC BY-NC 4.0 - non-commercial only, attribution in app"
+    },
+    {
+      "name": "OpenPhish community feed",
+      "enabled": "false",
+      "url": "https://openphish.com/feed.txt",
+      "format": "urls",
+      "license": "Terms forbid making data available to third parties"
+    }
+  ],
+  "limits": {
+    "maxHashes": 400000,
+    "maxDomains": 400000
+  }
+}

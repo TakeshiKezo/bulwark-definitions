@@ -1,0 +1,54 @@
+# Builds, signs and publishes the Bulwark definitions every 6 hours to GitHub Pages.
+# Required repository secrets:
+#   DEFS_SIGNING_KEY_B64  base64 of defs_private.pk8 (ECDSA P-256 signing key)
+#   ABUSECH_AUTH_KEY      free key from https://auth.abuse.ch (not-for-profit use)
+# If any source fails, the job fails and the last published set stays online.
+name: definitions
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Restore signing key
+        env:
+          KEY_B64: ${{ secrets.DEFS_SIGNING_KEY_B64 }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/keys"
+          echo "$KEY_B64" | base64 -d > "$RUNNER_TEMP/keys/defs_private.pk8"
+      - name: Build and sign feed
+        env:
+          ABUSECH_AUTH_KEY: ${{ secrets.ABUSECH_AUTH_KEY }}
+        run: java feeds/FeedBuilder.java --sources feeds/sources.json --base base --out site/v1 --key "$RUNNER_TEMP/keys"
+      - name: Remove key
+        if: always()
+        run: rm -rf "$RUNNER_TEMP/keys"
+      - name: Index page
+        run: echo '<!doctype html><title>Bulwark definitions</title><p>Signed definitions for the Bulwark app: <a href="v1/manifest.json">v1/manifest.json</a></p>' > site/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

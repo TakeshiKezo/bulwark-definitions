@@ -1,0 +1,3 @@
+# Known publisher signing certificates (SHA-256 of the DER certificate).
+# Matches lower the heuristic weight; they NEVER suppress hash/YARA detections.
+# Format: <sha256>;<publisher>

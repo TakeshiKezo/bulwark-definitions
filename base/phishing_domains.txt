@@ -1,0 +1,7 @@
+# Bulwark phishing/malware domain list (bundled baseline)
+# One domain per line; subdomains are blocked automatically.
+# Productive lists arrive via signed definition updates.
+# Test domains (harmless, reserved .example / .test TLDs):
+phishing.bulwark-test.example
+malware.bulwark-test.example
+bulwark-phishing.test
