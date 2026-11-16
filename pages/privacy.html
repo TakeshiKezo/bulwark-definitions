@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bulwark – Datenschutzerklärung / Privacy Policy</title>
+<style>
+  :root { color-scheme: light dark; }
+  body { font: 16px/1.6 system-ui, sans-serif; max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.6rem; } h2 { font-size: 1.2rem; margin-top: 2rem; }
+  table { border-collapse: collapse; width: 100%; } td, th { border: 1px solid #8884; padding: 6px 8px; text-align: left; vertical-align: top; }
+  .en { border-top: 2px solid #8886; margin-top: 3rem; padding-top: 1rem; }
+</style>
+</head>
+<body>
+<h1>Datenschutzerklärung – Bulwark (Android)</h1>
+<p>Stand: 16. November 2026 · Anbieter: Isukato (Entwicklerkonto im Google Play Store). Kontakt: über die im Play Store angegebene Entwickler-E-Mail-Adresse.</p>
+<p>Bulwark ist eine kostenlose Sicherheits-App, die ausschließlich Familienmitgliedern über einen geschlossenen Test im Google Play Store bereitgestellt wird. Sie enthält keine Werbung, keine Analyse- oder Tracking-Dienste und kein Nutzerkonto.</p>
+
+<h2>1. Verarbeitung auf dem Gerät</h2>
+<p>Alle Scans laufen lokal auf deinem Gerät: die Prüfung installierter Apps (Paketliste, Berechtigungen, Signaturzertifikate), die Prüfung von Dateien (SHA-256-Prüfsummen, Inhaltsregeln), die Quarantäne (AES-256-GCM-verschlüsselt, Schlüssel im Android Keystore), der Geräte-Check und die Link-Prüfung. Scan-Verlauf, Quarantäne-Index, Ausnahmen und Einstellungen liegen in einer app-privaten Datenbank und sind von Cloud-Backups ausgeschlossen. Nichts davon wird an uns übertragen.</p>
+
+<h2>2. Was das Gerät verlassen kann</h2>
+<table>
+<tr><th>Funktion</th><th>Übertragene Daten</th><th>Empfänger</th><th>Wann</th></tr>
+<tr><td>Definitions-Updates</td><td>keine personenbezogenen Daten; es wird nur eine Datei heruntergeladen (technisch bedingt sieht der Server die IP-Adresse)</td><td>GitHub Pages (GitHub, Inc.)</td><td>automatisch, täglich im WLAN</td></tr>
+<tr><td>Web-Schutz (optional)</td><td>DNS-Anfragen gehen wie ohne Bulwark an den DNS-Server deines Netzes; Bulwark protokolliert und überträgt sie nicht</td><td>dein bisheriger DNS-Server</td><td>nur wenn aktiviert</td></tr>
+<tr><td>VirusTotal-Prüfung (optional)</td><td>nur SHA-256-Prüfsummen verdächtiger Dateien, nie die Dateien selbst</td><td>VirusTotal (Google)</td><td>nur nach Zustimmung und mit eigenem API-Schlüssel</td></tr>
+<tr><td>Passwort-Leckprüfung (optional)</td><td>die ersten 5 Zeichen des SHA-1-Hashes (k-Anonymität); das Passwort verlässt das Gerät nicht</td><td>Have I Been Pwned</td><td>nur auf ausdrücklichen Wunsch</td></tr>
+<tr><td>E-Mail-Leckprüfung (optional)</td><td>die eingegebene E-Mail-Adresse</td><td>Have I Been Pwned</td><td>nur auf ausdrücklichen Wunsch mit eigenem API-Schlüssel</td></tr>
+</table>
+
+<h2>3. Berechtigungen</h2>
+<p><b>Liste installierter Apps</b>: zur Prüfung auf schädliche Apps. <b>Zugriff auf alle Dateien</b> (optional): zur Prüfung von Downloads und Speicher sowie zum Verschieben gefährlicher Dateien in die Quarantäne; ohne ihn kannst du einzelne Ordner freigeben. <b>VPN</b> (optional): ausschließlich für den lokalen DNS-Filter des Web-Schutzes; es wird kein Datenverkehr umgeleitet oder mitgelesen. <b>Benachrichtigungen</b>: Warnungen bei Funden. <b>Paket-Deinstallation anfragen</b>: öffnet den System-Dialog zum Entfernen erkannter Schad-Apps.</p>
+
+<h2>4. Speicherdauer und Löschung</h2>
+<p>Daten bleiben auf deinem Gerät, bis du sie löschst (Verlauf löschen, Quarantäne leeren) oder die App deinstallierst. Quarantäne-Einträge werden automatisch nach der eingestellten Frist (Standard 30 Tage) gelöscht.</p>
+
+<h2>5. Deine Rechte</h2>
+<p>Du hast nach DSGVO die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch sowie ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde. Da wir keine personenbezogenen Daten auf eigenen Servern speichern, kannst du die meisten Rechte direkt in der App ausüben.</p>
+
+<h2>6. Datenquellen</h2>
+<p>Die Bedrohungsdaten stammen aus MalwareBazaar und URLhaus (abuse.ch), Phishing.Database (MIT-Lizenz) und Phishing Army (CC BY-NC 4.0).</p>
+
+<div class="en" lang="en">
+<h1>Privacy Policy – Bulwark (Android)</h1>
+<p>As of 16 November 2026 · Provider: Isukato (Google Play developer account). Contact: via the developer e-mail shown on Google Play.</p>
+<p>Bulwark is a free security app distributed only to family members via a closed Google Play test. It contains no ads, no analytics or tracking, and no user account.</p>
+<p><b>On-device processing:</b> all scanning (installed apps, files, quarantine encrypted with AES-256-GCM using an Android Keystore key, device check, link check) runs locally. History, quarantine index, exclusions and settings stay in an app-private database excluded from backups and are never sent to us.</p>
+<p><b>Data that may leave the device:</b> definition updates (file download from GitHub Pages, no personal data); web protection DNS queries go to your network's usual DNS server as without Bulwark and are not logged; optional VirusTotal lookups send only SHA-256 hashes; the optional password breach check sends only the first 5 characters of a SHA-1 hash; the optional e-mail breach check sends the entered address to Have I Been Pwned. Optional features run only after your explicit consent.</p>
+<p><b>Permissions:</b> installed app list (malware scanning), all files access (optional, scanning and quarantine), VPN (optional, local DNS filter only), notifications (threat alerts), request package deletion (opens the system uninstall dialog).</p>
+<p><b>Retention and rights:</b> data stays on your device until you delete it or uninstall the app; quarantine items are removed automatically after the configured period. You have the rights granted by the GDPR, including access, erasure and the right to lodge a complaint with a supervisory authority.</p>
+</div>
+</body>
+</html>
