@@ -38,7 +38,8 @@ jobs:
         if: always()
         run: rm -rf "$RUNNER_TEMP/keys"
       - name: Index page
-        run: echo '<!doctype html><title>Bulwark definitions</title><p>Signed definitions for the Bulwark app: <a href="v1/manifest.json">v1/manifest.json</a></p>' > site/index.html
+        run: |
+          echo '<!doctype html><title>Bulwark definitions</title><p>Signed definitions for the Bulwark app - <a href="v1/manifest.json">v1/manifest.json</a></p>' > site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
